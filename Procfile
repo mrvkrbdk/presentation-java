@@ -1,1 +1,1 @@
-web: java -Djava.net.preferIPv4Stack=true -jar target/*.war --port $PORT
+web: java -jar $JAVA_OPTS -Dserver.port=$PORT target/*.jar
