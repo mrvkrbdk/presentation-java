@@ -1,1 +1,1 @@
-web: java -jar target/presentation-programmer.war
+web: java -jar target/*.war
