@@ -1,1 +1,1 @@
-web: java --port $PORT -jar target/*.war
+web: java -jar target/*.war
