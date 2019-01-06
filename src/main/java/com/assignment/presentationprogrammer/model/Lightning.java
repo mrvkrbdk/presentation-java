@@ -1,10 +1,10 @@
 package com.assignment.presentationprogrammer.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author mervek
@@ -18,6 +18,8 @@ public class Lightning implements Serializable{
     private long id;
     private String subject;
     private int duration;
+
+    private Date starting;
 
     public long getId() {
         return id;
@@ -41,5 +43,13 @@ public class Lightning implements Serializable{
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public Date getStarting() {
+        return starting;
+    }
+
+    public void setStarting(Date starting) {
+        this.starting = starting;
     }
 }
