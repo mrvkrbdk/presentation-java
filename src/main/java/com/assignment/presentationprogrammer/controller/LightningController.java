@@ -5,7 +5,7 @@ import com.assignment.presentationprogrammer.repository.LightningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,34 +39,48 @@ public class LightningController {
         return fixedLighting;
     }
 
+    public Date timeSetter(int hour, int min) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, min);
+        return cal.getTime();
+    }
+
     @PostMapping
     public void create(@RequestBody List<Lightning> lightningList) {
         int hour = 9;
         int minuteStart = 0;
-        boolean flag = false;
-        Date starting = new Date();
-        Calendar cal = Calendar.getInstance();
+//        boolean flag = false; //TODO:
+        List<Lightning> lightnings = lightningRepository.findAll();
+        if (lightnings.size() > 0) {
+            for (Lightning lightning : lightningList) {
+                for (Lightning existLightning : lightnings) {
+                    if (existLightning.getSubject().equals(lightning.getSubject())) {
+                        lightningRepository.deleteById(existLightning.getId());
+                    }
+                }
+            }
+        }
         lightningList.sort((o1, o2) -> compare(o1.getDuration(), o2.getDuration()));
         for (Lightning lightning : lightningList) {
+            lightning.setStarting(timeSetter(hour, minuteStart));
             minuteStart += lightning.getDuration();
-            if (minuteStart > 60 || minuteStart==60) {
+            if (minuteStart > 60 || minuteStart == 60) {
                 minuteStart = minuteStart - 60;
                 hour++;
             }
-            /*TODO
-            *gecici diziye ligningleri atarsam ardindan saat 11 oldugunda ama minute fazlaligi vasa minute
-            *fazlaligi kadar olan durationli objeyi diziden cikarsam yerine 1 saatlik durationluyu eklesem
-            * saat 11 de flagi trueya cekip gecici dizi icersinde dedigim durationluyu arayip indexini bulup suanki diziden diziden
-             * cikartip  */
+
             if (hour == 11) {
                 findLigtning(lightningList, 60 - minuteStart);
+                Lightning lunch=new Lightning();
+                lunch.setSubject("Lunch");
+                lunch.setStarting(timeSetter(12,0));
+                lunch.setFinishing(timeSetter(13,0));
             }
-
-            cal.set(Calendar.HOUR_OF_DAY, hour);
-            cal.set(Calendar.MINUTE, minuteStart);
-            starting = cal.getTime();
-            lightning.setStarting(starting);
+            lightning.setFinishing(timeSetter(hour, minuteStart));
         }
+
+
         lightningRepository.saveAll(lightningList);
     }
 
