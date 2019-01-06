@@ -9,7 +9,6 @@ class LightningList extends Component {
     this.props.handleRemoveLightning(index)
   }
   handleSubmitList=(lightningList)=>{
-    lightningList.preventDefault();
     this.props.handleSubmitList(lightningList);
   }
 
