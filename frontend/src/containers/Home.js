@@ -6,11 +6,11 @@ import LightningDetail from "../components/LightningDetail";
 import LightningList from "../components/LightningList";
 import LightningForm from "../components/LightningForm";
 
-import {addLightning, getLightning, addLocalLightningList,removeLocalLightningList} from '../redux/lightning'
+import {addLightning, getLightning, addLocalLightningList, removeLocalLightningList} from '../redux/lightning'
 
 class Home extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.getLightning();
   }
 
@@ -21,23 +21,22 @@ class Home extends Component {
   handleRemoveLightning = index => {
     this.props.removeLocalLightningList(index)
   };
-  handleSubmitList=lightningList=>{
-    this.props.addLightning(lightningList);
+  handleSubmitList = async lightningList => {
+    await this.props.addLightning(lightningList);
     this.props.getLightning();
-
   };
 
   render() {
     return (
-      <Fragment >
-        <Row gutter={30} style={{padding:"30px"}}>
+      <Fragment>
+        <Row gutter={30} style={{padding: "30px"}}>
           <Col span={12}>
             <LightningForm handleAddLightning={this.handleAddLightning}/>
           </Col>
 
           <Col span={12}>
             <LightningList handleRemoveLightning={this.handleRemoveLightning}
-                          localLightningList={this.props.localLightningList}
+                           localLightningList={this.props.localLightningList}
                            handleSubmitList={this.handleSubmitList}/>
           </Col>
         </Row>
@@ -45,7 +44,7 @@ class Home extends Component {
         <LightningDetail lightningList={this.props.lightningList}/>
         <p style={{float: "right", padding: "10px"}}><a href={"https://github.com/mrvkrbdk/presentation-java"}>
           Github Repository
-        </a> </p>
+        </a></p>
       </Fragment>
     );
   }
