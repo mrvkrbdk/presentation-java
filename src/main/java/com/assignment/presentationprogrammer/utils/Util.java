@@ -5,7 +5,6 @@ import com.assignment.presentationprogrammer.model.Lightning;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * @author mervek
@@ -28,7 +27,7 @@ public class Util {
 
     public Date timeSetter(int hour, int min) {
         Calendar cal = Calendar.getInstance();
-        // cal.setTimeZone(TimeZone.getTimeZone("GMT+3"));
+        // cal.setTimeZone(TimeZone.getTimeZone("Europe/Istanbul"));
         cal.set(Calendar.HOUR_OF_DAY, hour);
         cal.set(Calendar.MINUTE, min);
         return cal.getTime();
