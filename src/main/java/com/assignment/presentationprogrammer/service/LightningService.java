@@ -32,17 +32,6 @@ public class LightningService extends Util {
             for (Lightning lightning:lightnings) {
                 lightningRepository.deleteById(lightning.getId());
             }
-//            for (Lightning lightning : lightningList) {
-//                for (Lightning existLightning : lightnings) {
-//                    if (existLightning.getSubject().equals(lightning.getSubject()) || existLightning.getSubject().equals("Lunch")) {
-//                        lightningRepository.deleteById(existLightning.getId());
-//                    }
-//                    if (!lightning.getSubject().equals(existLightning.getSubject())){
-//                        Lightning lightningRepositoryBySubject=lightningRepository.getBySubject(lightning.getSubject());
-//                        lightningRepository.deleteById(lightningRepositoryBySubject.getId());
-//                    }
-//                }
-//            }
         }
         lightningList.sort((o1, o2) -> compare(o1.getDuration(), o2.getDuration()));
 

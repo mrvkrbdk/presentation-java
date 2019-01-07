@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LightningRepository extends JpaRepository<Lightning,Long> {
-    Lightning getBySubject(String subject);
 }
